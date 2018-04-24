@@ -1,7 +1,17 @@
 {
 	"@context" : {
-		"@vocab": "/contexts/vocab.jsonld",
+		"ask": "http://localhost:5000",		
+		"schema": "http://schema.org/",
+		"vocab": "ask:/contexts/vocab.jsonld#",
+
+		"type": "@type",
 		"id": "@id",
-		"type": "@type"
+		"Book": "schema:Book",
+		"title": "schema:name",
+		"description": "schema:description",
+		"author": {
+			"@id": "schema:author",
+			"@type": "schema:author"
+		}
 	}
 }

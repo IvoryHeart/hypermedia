@@ -1,16 +1,16 @@
 books = [
 	{
-		"@type": "http://schema.org/Book",
-		"@id": "./1",
-		"id": 1,
-		"author_id": 1,
+		"@context" : "/contexts/books.jsonld",
+		"id": "1",
+		"@type": "schema:Book",
+		"author": "1",
 		"title": "The Lord of the Rings"
 	},
 	{
-		"@type": "http://schema.org/Book",
-		"@id": "./2",	
-		"id": 2,
-		"author_id": 2,
+		"@context" : "/contexts/books.jsonld",	
+		"@type": "schema:Book",
+		"id": "2",
+		"author": "2",
 		"title": "The Game of Thrones"
 	}
 ]
@@ -19,15 +19,15 @@ books = [
 
 authors = [
 	{
-		"@type": "http://schema.org/author",
-		"@id": "./1",
-		"id": 1,
+		"@context" : "/contexts/authors.jsonld",
+		"@type": "schema:author",
+		"id": "1",
 		"name": "JRR Tolkien"
 	},
 	{
-		"@type": "http://schema.org/author",
-		"@id": "./2",
-		"id": 2,
+		"@context" : "/contexts/authors.jsonld",	
+		"@type": "schema:author",
+		"id": "2",
 		"name": "George RR Martin"
 	}
 ]

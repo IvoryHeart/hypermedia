@@ -12,6 +12,7 @@ api = Api(app)
 app.config['JSONLDIFY_MIME_TYPE'] = "application/ld+json"
 app.config['CONTEXTS_FOLDER'] = "./contexts/"
 app.config['API_DOC_FOLDER'] = "./api-doc/"
+app.config['apiDocumentation'] = "/contexts/vocab.jsonld#"
 
 ##
 ## Actually setup the Api resource routing here

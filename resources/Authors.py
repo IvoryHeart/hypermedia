@@ -1,8 +1,11 @@
-from data import books, authors
-from flask_restful import Resource, abort, reqparse
 import sys
-from ldify import ld_response, JSONLDIFY_MIME_TYPE
 import json
+from flask_restful import Resource, abort, reqparse
+from flask import Flask, current_app
+
+from ldify import ld_response, JSONLDIFY_MIME_TYPE
+from data import books, authors
+
 
 parser = reqparse.RequestParser()
 parser.add_argument('name')
@@ -10,7 +13,8 @@ parser.add_argument('id')
 parser.add_argument('description')
 
 contextPath="/contexts/authors.jsonld"
-apiDocumentation = "/contexts/vocab.jsonld"
+
+apiDocumentation = "/contexts/vocab.jsonld#"
 
 # BooksList
 # shows a list of all books, and lets you POST to add new tasks
@@ -30,7 +34,7 @@ class AuthorList(Resource):
 class Author(Resource):
     def get(self, author_id):
         author, index = abort_if_author_doesnt_exist(author_id)
-        #return author, 200
+            #return author, 200
         return ld_response(json.dumps(author), 200, context=contextPath, apiDoc=apiDocumentation)
 
     def delete(self, author_id):
@@ -81,6 +85,6 @@ def abort_if_author_doesnt_exist(author_id):
 def author_find(author_id):
     for index, author in enumerate(authors):
         print(author, file=sys.stderr)
-        if author['id'] == int(author_id):
+        if author['id'] == int(author_id) or author['id'] == author_id:
             return author, index
     return None, -1

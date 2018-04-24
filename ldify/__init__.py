@@ -9,11 +9,11 @@ def ld_response(data='', status=200, headers=None, context=None, apiDoc=None):
     if 'Content-Type' not in headers:
         headers['Content-Type'] = current_app.config['JSONLDIFY_MIME_TYPE']
 
-    if apiDoc is not None:
-        headers = append_header(headers, descriptor='Link', value = "<http://localhost:5000" + apiDoc + ">; rel=\"http://www.w3.org/ns/hydra/core#apiDocumentation\"" )
     if context is not None:
         headers = append_header(headers, descriptor='Link', value = "<http://localhost:5000" + context + ">; rel=\"http://www.w3.org/ns/json-ld#context\"")
 
+    if apiDoc is not None:
+        headers = append_header(headers, descriptor='Link', value = "<http://localhost:5000" + apiDoc + ">; rel=\"http://www.w3.org/ns/hydra/core#apiDocumentation\"" )
 
     return make_response(data, status, headers)
 

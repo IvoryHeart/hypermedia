@@ -5,12 +5,12 @@ from ldify import ld_response, JSONLDIFY_MIME_TYPE
 import json
 
 parser = reqparse.RequestParser()
-parser.add_argument('name')
+parser.add_argument('title')
 parser.add_argument('id')
 parser.add_argument('description')
 
 contextPath="/contexts/books.jsonld"
-apiDocumentation = "/contexts/vocab.jsonld"
+apiDocumentation = "/contexts/vocab.jsonld#"
 
 # BooksList
 # shows a list of all books, and lets you POST to add new tasks
@@ -22,7 +22,7 @@ class BookList(Resource):
         args = parser.parse_args()
         book_id = len(books) + 1
         #book_id = 'books/%i' % todo_id
-        book = {'id': book_id, 'name': args['name']}
+        book = {'id': book_id, 'title': args['title']}
         books.append(book)
         #return book, 201
         return ld_response(json.dumps(book), 201, context=contextPath, apiDoc=apiDocumentation)
@@ -81,6 +81,6 @@ def abort_if_book_doesnt_exist(book_id):
 def book_find(book_id):
     for index, book in enumerate(books):
         print(book, file=sys.stderr)
-        if book['id'] == int(book_id):
+        if book['id'] == int(book_id) or book['id'] == book_id:
             return book, index
     return None, -1

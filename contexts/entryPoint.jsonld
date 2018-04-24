@@ -1,0 +1,18 @@
+{
+  "@context": {
+  		"@base": "http://localhost:5000",
+		"hydra": "http://www.w3.org/ns/hydra/core#",
+		"ask": "http://localhost:5000/",
+		"@vocab": "ask:contexts/vocab.jsonld#",
+		"vocab": "ask:contexts/vocab.jsonld#",
+		"EntryPoint": "vocab:EntryPoint",
+		"authors": {
+			"@id": "vocab:EntryPoint/authors",
+			"@type": "@id"
+		},
+		"books": {
+			"@id": "vocab:EntryPoint/books",
+			"@type": "@id"
+		}
+  }
+}

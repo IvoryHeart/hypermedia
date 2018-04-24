@@ -1,0 +1,382 @@
+{
+    "@context": {
+        "@base": "http://localhost:5000",
+        "ask": "http://localhost:5000/",    
+        "vocab": "ask:contexts/vocab.jsonld#",
+        "hydra": "http://www.w3.org/ns/hydra/core#",
+        "ApiDocumentation": "hydra:ApiDocumentation",
+        "property": {
+            "@id": "hydra:property",
+            "@type": "@id"
+        },
+        "readonly": "hydra:readonly",
+        "writeonly": "hydra:writeonly",
+        "supportedClass": "hydra:supportedClass",
+        "supportedProperty": "hydra:supportedProperty",
+        "supportedOperation": "hydra:supportedOperation",
+        "method": "hydra:method",
+        "expects": {
+            "@id": "hydra:expects",
+            "@type": "@id"
+        },
+        "returns": {
+            "@id": "hydra:returns",
+            "@type": "@id"
+        },
+        "statusCodes": "hydra:statusCodes",
+        "code": "hydra:statusCode",
+        "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+        "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+        "label": "rdfs:label",
+        "description": "rdfs:comment",
+        "domain": {
+            "@id": "rdfs:domain",
+            "@type": "@id"
+        },
+        "range": {
+            "@id": "rdfs:range",
+            "@type": "@id"
+        },
+        "subClassOf": {
+            "@id": "rdfs:subClassOf",
+            "@type": "@id"
+        }
+    },
+    "@id": "ask:contexts/vocab.jsonld#",
+    "@type": "ApiDocumentation",
+    "supportedClass": [
+        {
+            "@id": "http://www.w3.org/ns/hydra/core#Collection",
+            "@type": "hydra:Class",
+            "hydra:title": "Collection",
+            "hydra:description": null,
+            "supportedOperation": [],
+            "supportedProperty": [
+                {
+                    "property": "http://www.w3.org/ns/hydra/core#member",
+                    "hydra:title": "members",
+                    "hydra:description": "The members of this collection.",
+                    "required": null,
+                    "readonly": false,
+                    "writeonly": false
+                }
+            ]
+        },
+        {
+            "@id": "http://www.w3.org/ns/hydra/core#Resource",
+            "@type": "hydra:Class",
+            "hydra:title": "Resource",
+            "hydra:description": null,
+            "supportedOperation": [],
+            "supportedProperty": []
+        },
+        {
+            "@id": "http://schema.org/Book",
+            "@type": "hydra:Class",
+            "hydra:title": "Book",
+            "hydra:description": null,
+            "supportedOperation": [
+                {
+                    "@id": "_:book_replace",
+                    "@type": "http://schema.org/UpdateAction",
+                    "method": "POST",
+                    "label": "Update an existing Book entity",
+                    "description": null,
+                    "expects": "http://schema.org/Book",
+                    "returns": "http://schema.org/Book",
+                    "statusCodes": [
+                        {
+                            "code": 404,
+                            "description": "If the Author entity wasn't found."
+                        }
+                    ]
+                },
+                {
+                    "@id": "_:book_delete",
+                    "@type": "http://schema.org/DeleteAction",
+                    "method": "DELETE",
+                    "label": "Deletes a Book entity",
+                    "description": null,
+                    "expects": null,
+                    "returns": "http://www.w3.org/2002/07/owl#Nothing",
+                    "statusCodes": [
+                        {
+                            "code": 204,
+                            "description": "If the Book entity is deleted and not found."
+                        }
+                    ]
+                },
+                {
+                    "@id": "_:book_retrieve",
+                    "@type": "hydra:Operation",
+                    "method": "GET",
+                    "label": "Retrieves a Book entity",
+                    "description": null,
+                    "expects": null,
+                    "returns": "http://schema.org/Book",
+                    "statusCodes": []
+                },
+                {
+                    "@id": "_:add_author",
+                    "@type": "hydra:Operation",
+                    "method": "POST",
+                    "label": "Add Author to a Book entity",
+                    "description": null,
+                    "expects": "http://schema.org/author",
+                    "returns": "http://schema.org/author",
+                    "statusCodes": []
+                }
+            ],
+            "supportedProperty": [
+                {
+                    "property": "http://schema.org/name",
+                    "hydra:title": "name",
+                    "hydra:description": "The Book's name",
+                    "required": true,
+                    "readonly": false,
+                    "writeonly": false
+                },
+                {
+                    "property": "http://schema.org/description",
+                    "hydra:title": "description",
+                    "hydra:description": "Description of the book",
+                    "required": true,
+                    "readonly": false,
+                    "writeonly": false
+                },
+                {
+                    "property": "http://schema.org/author",
+                    "hydra:title": "Author",
+                    "hydra:description": "Author(s) of the book",
+                    "required": true,
+                    "readonly": false,
+                    "writeonly": false
+                }
+            ]
+        },
+        {
+            "@id": "http://schema.org/author",
+            "@type": "hydra:Class",
+            "hydra:title": "Author",
+            "hydra:description": null,
+            "supportedOperation": [
+                {
+                    "@id": "_:author_replace",
+                    "@type": "http://schema.org/UpdateAction",
+                    "method": "POST",
+                    "label": "Update an existing Author entity",
+                    "description": null,
+                    "expects": "http://schema.org/author",
+                    "returns": "http://schema.org/author",
+                    "statusCodes": [
+                        {
+                            "code": 404,
+                            "description": "If the Author entity wasn't found."
+                        }
+                    ]
+                },
+                {
+                    "@id": "_:author_delete",
+                    "@type": "http://schema.org/DeleteAction",
+                    "method": "DELETE",
+                    "label": "Deletes a Author entity",
+                    "description": null,
+                    "expects": null,
+                    "returns": "http://www.w3.org/2002/07/owl#Nothing",
+                    "statusCodes": []
+                },
+                {
+                    "@id": "_:author_retrieve",
+                    "@type": "hydra:Operation",
+                    "method": "GET",
+                    "label": "Retrieves a Author entity",
+                    "description": null,
+                    "expects": null,
+                    "returns": "http://schema.org/author",
+                    "statusCodes": []
+                }
+            ],
+            "supportedProperty": [
+                {
+                    "property": "http://schema.org/name",
+                    "hydra:title": "name",
+                    "hydra:description": "The author's name",
+                    "required": true,
+                    "readonly": false,
+                    "writeonly": false
+                },
+                {
+                    "property": "http://schema.org/description",
+                    "hydra:title": "description",
+                    "hydra:description": "Description of the author",
+                    "required": true,
+                    "readonly": false,
+                    "writeonly": false
+                }
+            ]
+        },
+        {
+            "@id": "vocab:EntryPoint",
+            "@type": "hydra:Class",
+            "subClassOf": null,
+            "label": "EntryPoint",
+            "description": "The main entry point or homepage of the API.",
+            "supportedOperation": [
+                {
+                    "@id": "_:entry_point",
+                    "@type": "hydra:Operation",
+                    "method": "GET",
+                    "label": "The APIs main entry point.",
+                    "description": null,
+                    "expects": null,
+                    "returns": "vocab:EntryPoint",
+                    "statusCodes": []
+                }
+            ],
+            "supportedProperty": [
+                {
+                    "property": {
+                        "@id": "vocab:EntryPoint/authors",
+                        "@type": "hydra:Link",
+                        "label": "authors",
+                        "description": "The authors collection",
+                        "domain": "vocab:EntryPoint",
+                        "range": "vocab:AuthorCollection",
+                        "supportedOperation": [
+                            {
+                                "@id": "_:author_collection_retrieve",
+                                "@type": "hydra:Operation",
+                                "method": "GET",
+                                "label": "Retrieves all Author entities",
+                                "description": null,
+                                "expects": null,
+                                "returns": "vocab:AuthorCollection",
+                                "statusCodes": []
+                            }
+                        ]
+                    },
+                    "hydra:title": "authors",
+                    "hydra:description": "The authors collection",
+                    "required": null,
+                    "readonly": true,
+                    "writeonly": false
+                },
+                {
+                    "property": {
+                        "@id": "vocab:EntryPoint/books",
+                        "@type": "hydra:Link",
+                        "label": "books",
+                        "description": "The books collection",
+                        "domain": "vocab:EntryPoint",
+                        "range": "hydra:Collection",
+                        "supportedOperation": [
+                            {
+                                "@id": "_:book_collection_retrieve",
+                                "@type": "hydra:Operation",
+                                "method": "GET",
+                                "label": "Retrieves all Book entities",
+                                "description": null,
+                                "expects": null,
+                                "returns": "hydra:Collection",
+                                "statusCodes": []
+                            }
+                        ]
+                    },
+                    "hydra:title": "books",
+                    "hydra:description": "The books collection",
+                    "required": null,
+                    "readonly": true,
+                    "writeonly": false
+                }
+            ]
+        },
+        {
+            "@id": "vocab:AuthorCollection",
+            "@type": "hydra:Class",
+            "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
+            "label": "AuthorCollection",
+            "description": "A collection of authors",
+            "supportedOperation": [
+                {
+                    "@id": "_:author_create",
+                    "@type": "http://schema.org/AddAction",
+                    "method": "POST",
+                    "label": "Creates a new Author entity",
+                    "description": null,
+                    "expects": "http://schema.org/author",
+                    "returns": "http://schema.org/author",
+                    "statusCodes": [
+                        {
+                            "code": 201,
+                            "description": "If the Author entity was created successfully."
+                        }
+                    ]
+                },
+                {
+                    "@id": "_:author_collection_retrieve",
+                    "@type": "hydra:Operation",
+                    "method": "GET",
+                    "label": "Retrieves all Author entities",
+                    "description": null,
+                    "expects": null,
+                    "returns": "vocab:AuthorCollection",
+                    "statusCodes": []
+                }
+            ],
+            "supportedProperty": [
+                {
+                    "property": "http://www.w3.org/ns/hydra/core#member",
+                    "hydra:title": "members",
+                    "hydra:description": "The authors",
+                    "required": null,
+                    "readonly": false,
+                    "writeonly": false
+                }
+            ]
+        },
+        {
+            "@id": "vocab:BookCollection",
+            "@type": "hydra:Class",
+            "subClassOf": "http://www.w3.org/ns/hydra/core#Collection",
+            "label": "BookCollection",
+            "description": "A collection of books",
+            "supportedOperation": [
+                {
+                    "@id": "_:book_create",
+                    "@type": "http://schema.org/AddAction",
+                    "method": "POST",
+                    "label": "Creates a new Book entity",
+                    "description": null,
+                    "expects": "http://schema.org/Book",
+                    "returns": "http://schema.org/Book",
+                    "statusCodes": [
+                        {
+                            "code": 201,
+                            "description": "If the Book entity was created successfully."
+                        }
+                    ]
+                },
+                {
+                    "@id": "_:book_collection_retrieve",
+                    "@type": "hydra:Operation",
+                    "method": "GET",
+                    "label": "Retrieves all Book entities",
+                    "description": null,
+                    "expects": null,
+                    "returns": "hydra:Collection",
+                    "statusCodes": []
+                }
+            ],
+            "supportedProperty": [
+                {
+                    "property": "http://www.w3.org/ns/hydra/core#member",
+                    "hydra:title": "members",
+                    "hydra:description": "The Books",
+                    "required": null,
+                    "readonly": false,
+                    "writeonly": false
+                }
+            ]
+        }
+    ]
+}

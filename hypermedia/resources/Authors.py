@@ -4,7 +4,9 @@ from flask_restful import Resource, abort, reqparse
 from flask import Flask, current_app
 
 from ldify import ld_response, JSONLDIFY_MIME_TYPE
-from data import books, authors
+from .data import books, authors
+
+from hypermedia import app, api
 
 
 parser = reqparse.RequestParser()
@@ -14,7 +16,7 @@ parser.add_argument('description')
 
 contextPath="/contexts/authors.jsonld"
 
-apiDocumentation = "/contexts/vocab.jsonld#"
+apiDocumentation = app.config['hydra:apiDocumentation']#"/contexts/vocab.jsonld#"
 
 # BooksList
 # shows a list of all books, and lets you POST to add new tasks

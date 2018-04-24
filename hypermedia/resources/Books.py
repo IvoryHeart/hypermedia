@@ -1,4 +1,4 @@
-from data import books, authors
+from .data import books, authors
 from flask_restful import Resource, abort, reqparse
 import sys
 from ldify import ld_response, JSONLDIFY_MIME_TYPE

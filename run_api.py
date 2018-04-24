@@ -1,18 +1,17 @@
-from flask import Flask
-from flask_restful import reqparse, abort, Api, Resource
-from resources.Authors import AuthorList, Author
-from resources.Books import BookList, Book
-from resources.contexts import Contexts
-from resources.EntryPoint import EntryPoint
-import sys
-
-app = Flask(__name__)
-api = Api(app)
+from hypermedia import app, api 
 
 app.config['JSONLDIFY_MIME_TYPE'] = "application/ld+json"
 app.config['CONTEXTS_FOLDER'] = "./contexts/"
 app.config['API_DOC_FOLDER'] = "./api-doc/"
-app.config['apiDocumentation'] = "/contexts/vocab.jsonld#"
+app.config['hydra:apiDocumentation'] = "/contexts/vocab.jsonld#"
+
+
+## Import other objects dependent on app context
+
+from hypermedia.resources.Authors import AuthorList, Author
+from hypermedia.resources.Books import BookList, Book
+from hypermedia.resources.contexts import Contexts
+from hypermedia.resources.EntryPoint import EntryPoint
 
 ##
 ## Actually setup the Api resource routing here

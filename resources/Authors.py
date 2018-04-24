@@ -29,7 +29,7 @@ class AuthorList(Resource):
 
 class Author(Resource):
     def get(self, author_id):
-        author = abort_if_author_doesnt_exist(author_id)
+        author, index = abort_if_author_doesnt_exist(author_id)
         #return author, 200
         return ld_response(json.dumps(author), 200, context=contextPath, apiDoc=apiDocumentation)
 

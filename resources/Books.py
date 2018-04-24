@@ -29,7 +29,7 @@ class BookList(Resource):
 
 class Book(Resource):
     def get(self, book_id):
-        book = abort_if_book_doesnt_exist(book_id)
+        book, index = abort_if_book_doesnt_exist(book_id)
         #return book, 200
         return ld_response(json.dumps(book), 200, context=contextPath, apiDoc=apiDocumentation)
 

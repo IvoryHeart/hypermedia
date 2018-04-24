@@ -2,7 +2,7 @@ from flask import Flask, send_from_directory
 from flask_restful import Resource, abort, reqparse
 import os, sys, json
 from ldify import ld_response, JSONLDIFY_MIME_TYPE
-from data import entryPoint
+from .data import entryPoint
 
 
 app = Flask(__name__, static_url_path='')

@@ -1,5 +1,4 @@
 import sys
-import json
 from flask_restful import Resource, abort, reqparse
 from flask import Flask, current_app
 
@@ -22,7 +21,8 @@ apiDocumentation = app.config['hydra:apiDocumentation']#"/contexts/vocab.jsonld#
 # shows a list of all books, and lets you POST to add new tasks
 class AuthorList(Resource):
     def get(self):
-        return ld_response(json.dumps(authors), 200, context=contextPath, apiDoc=apiDocumentation)
+        contextPath="/contexts/authorList.jsonld"
+        return ld_response(authors, 200, context=contextPath, apiDoc=apiDocumentation, contentType="application/json")
 
     def post(self):
         args = parser.parse_args()
@@ -31,13 +31,13 @@ class AuthorList(Resource):
         author = {'id': author_id, 'name': args['name']}
         authors.append(author)
         #return author, 201
-        return ld_response(json.dumps(author), 201, context=contextPath, apiDoc=apiDocumentation)
+        return ld_response(author, 201, context=contextPath, apiDoc=apiDocumentation)
 
 class Author(Resource):
     def get(self, author_id):
         author, index = abort_if_author_doesnt_exist(author_id)
             #return author, 200
-        return ld_response(json.dumps(author), 200, context=contextPath, apiDoc=apiDocumentation)
+        return ld_response(author, 200, context=contextPath, apiDoc=apiDocumentation)
 
     def delete(self, author_id):
     	author, index = abort_if_author_doesnt_exist(author_id)
@@ -62,7 +62,7 @@ class Author(Resource):
 
         authors[index] = author
         #return authors[author_id], 200
-        return ld_response(json.dumps(author), 200, context=contextPath, apiDoc=apiDocumentation)
+        return ld_response(author, 200, context=contextPath, apiDoc=apiDocumentation)
 
     def put(self, author_id):
         args = parser.parse_args()
@@ -74,7 +74,7 @@ class Author(Resource):
 
         authors.append(author)
     	#return author, 201
-        return ld_response(json.dumps(author), 200, context=contextPath, apiDoc=apiDocumentation)
+        return ld_response(author, 200, context=contextPath, apiDoc=apiDocumentation)
 
 def abort_if_author_doesnt_exist(author_id):
     author, index = author_find(author_id)

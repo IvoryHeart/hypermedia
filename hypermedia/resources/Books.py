@@ -2,7 +2,6 @@ from .data import books, authors
 from flask_restful import Resource, abort, reqparse
 import sys
 from ldify import ld_response, JSONLDIFY_MIME_TYPE
-import json
 
 parser = reqparse.RequestParser()
 parser.add_argument('title')
@@ -16,7 +15,7 @@ apiDocumentation = "/contexts/vocab.jsonld#"
 # shows a list of all books, and lets you POST to add new tasks
 class BookList(Resource):
     def get(self):
-        return ld_response(json.dumps(books), 200, context=contextPath, apiDoc=apiDocumentation)
+        return ld_response(books, 200, context=contextPath, apiDoc=apiDocumentation)
 
     def post(self):
         args = parser.parse_args()
@@ -25,13 +24,13 @@ class BookList(Resource):
         book = {'id': book_id, 'title': args['title']}
         books.append(book)
         #return book, 201
-        return ld_response(json.dumps(book), 201, context=contextPath, apiDoc=apiDocumentation)
+        return ld_response(book, 201, context=contextPath, apiDoc=apiDocumentation)
 
 class Book(Resource):
     def get(self, book_id):
         book, index = abort_if_book_doesnt_exist(book_id)
         #return book, 200
-        return ld_response(json.dumps(book), 200, context=contextPath, apiDoc=apiDocumentation)
+        return ld_response(book, 200, context=contextPath, apiDoc=apiDocumentation)
 
     def delete(self, book_id):
     	book, index = abort_if_book_doesnt_exist(book_id)
@@ -56,7 +55,7 @@ class Book(Resource):
 
         books[index] = book
         #return books[book_id], 200
-        return ld_response(json.dumps(book), 200, context=contextPath, apiDoc=apiDocumentation)
+        return ld_response(book, 200, context=contextPath, apiDoc=apiDocumentation)
 
     def put(self, book_id):
         args = parser.parse_args()
@@ -68,7 +67,7 @@ class Book(Resource):
 
         books.append(book)
     	#return book, 201
-        return ld_response(json.dumps(book), 200, context=contextPath, apiDoc=apiDocumentation)
+        return ld_response(book, 200, context=contextPath, apiDoc=apiDocumentation)
 
 def abort_if_book_doesnt_exist(book_id):
     book, index = book_find(book_id)

@@ -1,0 +1,12 @@
+#TODO
+
+## TODO
+* Support for list object
+* Support for context in headers
+* Support for Linked Data in backend
+* Remove @type from object. (Putting in context not working, refer to `context in headers`)
+
+
+## Done
+* Support for context in headers
+	* Change the Content-Type to non json-ld, then proxy.php->$options->expandContext will be used.

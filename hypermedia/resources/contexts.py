@@ -23,4 +23,4 @@ class Contexts(Resource):
 			#TODO: Check if file exists before reading.
 			data = json.load(f)
 
-		return ld_response(json.dumps(data), 200, context = "/contexts/" + contextName)
+		return ld_response(data, 200, context = "/contexts/" + contextName)

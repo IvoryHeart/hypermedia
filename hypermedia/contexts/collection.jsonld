@@ -1,0 +1,18 @@
+{
+	"@context" : {
+		"ask": "http://localhost:5000",		
+		"schema": "http://schema.org/",
+		"vocab": "ask:/contexts/vocab.jsonld#",
+		"hydra": "http://www.w3.org/ns/hydra/core#",
+
+		"type": "@type",
+		"id": "@id",
+
+		"Collection": "hydra:Collection",
+    	"members": "hydra:member",
+
+		"author": "schema:author",
+		"name": "schema:name",
+		"description": "schema:description"
+	}
+}

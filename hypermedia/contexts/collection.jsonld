@@ -8,8 +8,10 @@
 		"type": "@type",
 		"id": "@id",
 
-		"Collection": "hydra:Collection",
-    	"members": "hydra:member",
+    	"members": { 
+    		"@id": "hydra:member",
+    		"@type" : "@id"
+    	},
 
 		"author": "schema:author",
 		"name": "schema:name",

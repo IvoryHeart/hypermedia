@@ -1,5 +1,6 @@
 {
 	"@context" : {
+		"@base" : "http://localhost:5000/authors/",
 		"ask": "http://localhost:5000",		
 		"schema": "http://schema.org/",
 		"vocab": "ask:/contexts/vocab.jsonld#",
@@ -11,7 +12,10 @@
 		"description": "schema:description",
 		"author": {
 			"@id": "schema:author",
-			"@type": "schema:author"
+			"@type": "@id",
+			"@context" : {
+				"@base" : "http://localhost:5000/authors/"
+			}
 		}
 	}
 }

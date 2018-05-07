@@ -2,11 +2,20 @@
 
 ## TODO
 * Support for list object
+	* Used hydra:Collection and changed all lists to collections. Using actual @list needs to be done
+	* Adding "@container": "@list" needs to be fixed
 * Support for context in headers
 * Support for Linked Data in backend
 * Remove @type from object. (Putting in context not working, refer to `context in headers`)
+* Dynamic @id generation
+* Support for DB
+* Implement IRITemplates
 
 
 ## Done
 * Support for context in headers
 	* Change the Content-Type to non json-ld, then proxy.php->$options->expandContext will be used.
+* Support for list object
+	* Used hydra:Collection and changed all lists to collections. Using actual @list needs to be done
+* Loaded dynamic data in console
+* Support for IRITemplate

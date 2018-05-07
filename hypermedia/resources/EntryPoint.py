@@ -14,4 +14,4 @@ apiDocumentation = "/contexts/vocab.jsonld"
 # shows a list of all contexts, and lets you POST to add new contexts
 class EntryPoint(Resource):
 	def get(self):		
-		return ld_response(json.dumps(entryPoint), 200, context = contextPath, apiDoc=apiDocumentation)
+		return ld_response(entryPoint, 200, context = contextPath, apiDoc=apiDocumentation)

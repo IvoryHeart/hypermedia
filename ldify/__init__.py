@@ -13,6 +13,8 @@ def ld_response(data='', status=200, headers=None, context=None, apiDoc=None, co
         else:
             headers['Content-Type'] = current_app.config['JSONLDIFY_MIME_TYPE']
 
+    print (type(data), file=sys.stderr)
+
     if isinstance(data, list):
         data, context = listToCollection(data, context)
 
@@ -22,14 +24,25 @@ def ld_response(data='', status=200, headers=None, context=None, apiDoc=None, co
     if context is not None:
         headers = append_header(headers, descriptor='Link', value = "<http://localhost:5000" + context + ">; rel=\"http://www.w3.org/ns/json-ld#context\"")
 
-    print (type(data), file=sys.stderr)
     return make_response(json.dumps(data), status, headers)
 
+#FIXME:: Add support for dynamically determining the type
 def listToCollection(data, context):
     obj = {}
     obj['@context'] = '/contexts/collection.jsonld'
     obj['@id'] = './'
-    obj['@type'] = 'hydra:Collection'
+
+    #TODO:: Dymically assign Collection Objects
+    #collectionTypes 
+    obj['@type'] = [ 'vocab:AuthorCollection', 'vocab:BookCollection', 'hydra:Collection']
+    obj['@type'] = 'vocab:AuthorCollection'
+    # obj['@graph'] = []
+    # #Trying multiple types with graph
+    # for collectionType in collectionTypes:
+    #     newType = {}
+    #     newType['@type'] = collectionType
+    #     obj['@graph'].append(newType)
+    
     obj['members'] = data
 
     return obj, obj['@context']

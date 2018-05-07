@@ -4,6 +4,7 @@
         "ask": "http://localhost:5000/",    
         "vocab": "ask:contexts/vocab.jsonld#",
         "hydra": "http://www.w3.org/ns/hydra/core#",
+        "schema": "http://schema.org/",
         "ApiDocumentation": "hydra:ApiDocumentation",
         "property": {
             "@id": "hydra:property",
@@ -40,7 +41,16 @@
         "subClassOf": {
             "@id": "rdfs:subClassOf",
             "@type": "@id"
-        }
+        },
+        "IriTemplate": "hydra:IriTemplate",
+        "template": "hydra:template",
+        "mapping": "hydra:mapping",
+        "variable": "hydra:variable",
+        "variableRepresentation" : "hydra:variableRepresentation",
+        "defines": { "@reverse": "rdfs:isDefinedBy" },
+        "IriTemplateMapping": "hydra:IriTemplateMapping",
+        "TemplatedLink": "hydra:TemplatedLink",
+        "Link": "hydra:Link"
     },
     "@id": "ask:contexts/vocab.jsonld#",
     "@type": "ApiDocumentation",
@@ -117,20 +127,20 @@
                     "statusCodes": []
                 },
                 {
-                    "@id": "_:add_author",
+                    "@id": "_:books_author_add",
                     "@type": "hydra:Operation",
                     "method": "POST",
                     "label": "Add Author to a Book entity",
                     "description": null,
                     "expects": "http://schema.org/author",
-                    "returns": "http://schema.org/author",
+                    "returns": "schema:Book",
                     "statusCodes": []
                 }
             ],
             "supportedProperty": [
                 {
                     "property": "http://schema.org/name",
-                    "hydra:title": "name",
+                    "hydra:title": "title",
                     "hydra:description": "The Book's name",
                     "required": true,
                     "readonly": false,
@@ -145,8 +155,62 @@
                     "writeonly": false
                 },
                 {
-                    "property": "http://schema.org/author",
-                    "hydra:title": "Author",
+                    "property" : {
+                        "@id": "vocab:Book/authors",
+                        "@type": "hydra:Link",
+                        "label": "author",
+                        "description": "The authors of a book",
+                        "domain": "schema:author",
+                        "range": "schema:author",
+                        "supportedOperation" : [
+                            {
+                                "@id": "_:books_author_retrieve",
+                                "@type": "hydra:Operation",
+                                "method": "GET",
+                                "label": "Retrieves the authors of a given book",
+                                "description": null,
+                                "expects": null,
+                                "returns": "http://www.w3.org/ns/hydra/core#Collection",
+                                "statusCodes": [
+                                    {
+                                        "code": 404,
+                                        "description": "If the Book entity isn't found."
+                                    }
+                                ]
+                            },
+                            {
+                                "@id": "_:books_author_add",
+                                "@type": "hydra:Operation",
+                                "method": "POST",
+                                "label": "Add an author to a given book",
+                                "description": null,
+                                "expects": null,
+                                "returns": "schema:Book",
+                                "statusCodes": [
+                                    {
+                                        "code": 404,
+                                        "description": "If the Book entity isn't found."
+                                    }
+                                ]
+                            },
+                            {
+                                "@id": "_:books_author_remove",
+                                "@type": "hydra:Operation",
+                                "method": "DELETE",
+                                "label": "Delete/delink an author to a given book",
+                                "description": null,
+                                "expects": null,
+                                "returns": "http://www.w3.org/ns/hydra/core#Collection",
+                                "statusCodes": [
+                                    {
+                                        "code": 204,
+                                        "description": "If the author for the book is removed"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    "hydra:title": "author",
                     "hydra:description": "Author(s) of the book",
                     "required": true,
                     "readonly": false,
@@ -268,7 +332,7 @@
                         "label": "books",
                         "description": "The books collection",
                         "domain": "vocab:EntryPoint",
-                        "range": "hydra:Collection",
+                        "range": "vocab:BookCollection",
                         "supportedOperation": [
                             {
                                 "@id": "_:book_collection_retrieve",
@@ -277,8 +341,29 @@
                                 "label": "Retrieves all Book entities",
                                 "description": null,
                                 "expects": null,
-                                "returns": "hydra:Collection",
-                                "statusCodes": []
+                                "returns": "vocab:BookCollection",
+                                "statusCodes": [],
+                                "IriTemplate" : {
+                                  "@type" : "IriTemplate",
+                                  "template" : "{?authorName,name}",
+                                  "variableRepresentation": "BasicRepresentation",
+                                  "mapping" : [
+                                    {
+                                      "@type" : "IriTemplateMapping",
+                                      "variable" : "authorName",
+                                      "property" : "hydra:property",
+                                      "required" : false,
+                                      "description" : "Used for querying books by an Author Name"
+                                    },
+                                    {
+                                      "@type" : "IriTemplateMapping",
+                                      "variable" : "name",
+                                      "property" : "hydra:property",
+                                      "required" : false,
+                                      "description" : "Used for querying books with a name"
+                                    }
+                                  ]
+                                }
                             }
                         ]
                     },
@@ -363,7 +448,7 @@
                     "label": "Retrieves all Book entities",
                     "description": null,
                     "expects": null,
-                    "returns": "hydra:Collection",
+                    "returns": "vocab:BookCollection",
                     "statusCodes": []
                 }
             ],

@@ -1,28 +1,32 @@
 books = [
 	{
 		"@context" : "/contexts/books.jsonld",
-		"id": "1",
 		"@type": "schema:Book",
-		"author": "1",
+		
+		"id": "1",
+		"author": "/authors/1",
 		"title": "The Lord of the Rings"
 	},
 	{
 		"@context" : "/contexts/books.jsonld",	
 		"@type": "schema:Book",
 		"id": "2",
-		"author": "2",
+		"author": ["/authors/2","/authors/1"],
 		"title": "The Game of Thrones"
 	}
 ]
 
 
+"""
+Removing @type will not make documentation jump
+"""
 
 authors = [
 	{
 		"@context" : "/contexts/authors.jsonld",
 		"@type": "schema:author",
 		"id": "1",
-		"name": "JRR Tolkien"
+		"name": "JRR Tolkien Sr."
 	},
 	{
 		"@context" : "/contexts/authors.jsonld",	
